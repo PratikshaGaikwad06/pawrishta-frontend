@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Pawrishta",
+    "slug": "pawrishta",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "pawrishta",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E8650A"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.pawrishta.app"
+    },
+    "android": {
+      "package": "com.pawrishta.app"
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
