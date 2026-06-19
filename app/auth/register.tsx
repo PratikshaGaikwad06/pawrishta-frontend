@@ -17,6 +17,32 @@ import { useColors } from "@/hooks/useColors";
 
 type Step = "owner" | "dog";
 
+type FieldProps = {
+  icon: string;
+  placeholder: string;
+  value: string;
+  onChange: (text: string) => void;
+  keyboardType?: any;
+  secure?: boolean;
+  colors: ReturnType<typeof useColors>;
+};
+
+const Field = ({ icon, placeholder, value, onChange, keyboardType = "default", secure = false, colors }: FieldProps) => (
+  <View style={styles.inputRow}>
+    <Ionicons name={icon as any} size={18} color={colors.mutedForeground} style={styles.inputIcon} />
+    <TextInput
+      style={[styles.input, { color: colors.foreground }]}
+      placeholder={placeholder}
+      placeholderTextColor={colors.mutedForeground}
+      value={value}
+      onChangeText={onChange}
+      keyboardType={keyboardType}
+      autoCapitalize={keyboardType === "email-address" ? "none" : "words"}
+      secureTextEntry={secure}
+    />
+  </View>
+);
+
 export default function RegisterScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
@@ -59,22 +85,6 @@ export default function RegisterScreen() {
 
   const groupStyle = [styles.inputGroup, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: 20 }];
 
-  const Field = ({ icon, placeholder, value, onChange, keyboardType = "default", secure = false }: any) => (
-    <View style={styles.inputRow}>
-      <Ionicons name={icon} size={18} color={colors.mutedForeground} style={styles.inputIcon} />
-      <TextInput
-        style={[styles.input, { color: colors.foreground }]}
-        placeholder={placeholder}
-        placeholderTextColor={colors.mutedForeground}
-        value={value}
-        onChangeText={onChange}
-        keyboardType={keyboardType}
-        autoCapitalize={keyboardType === "email-address" ? "none" : "words"}
-        secureTextEntry={secure}
-      />
-    </View>
-  );
-
   return (
     <ScrollView
       style={[styles.root, { backgroundColor: colors.background }]}
@@ -106,22 +116,22 @@ export default function RegisterScreen() {
 
       {step === "owner" ? (
         <View style={groupStyle}>
-          <Field icon="person-outline" placeholder="Full Name" value={name} onChange={setName} />
+          <Field icon="person-outline" placeholder="Full Name" value={name} onChange={setName} colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="mail-outline" placeholder="Email" value={email} onChange={setEmail} keyboardType="email-address" />
+          <Field icon="mail-outline" placeholder="Email" value={email} onChange={setEmail} keyboardType="email-address" colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="lock-closed-outline" placeholder="Password" value={password} onChange={setPassword} secure />
+          <Field icon="lock-closed-outline" placeholder="Password" value={password} onChange={setPassword} secure colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="location-outline" placeholder="City, State" value={location} onChange={setLocation} />
+          <Field icon="location-outline" placeholder="City, State" value={location} onChange={setLocation} colors={colors} />
         </View>
       ) : (
         <>
           <View style={groupStyle}>
-            <Field icon="paw-outline" placeholder="Dog's Name" value={dogName} onChange={setDogName} />
+            <Field icon="paw-outline" placeholder="Dog's Name" value={dogName} onChange={setDogName} colors={colors} />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <Field icon="search-outline" placeholder="Breed" value={dogBreed} onChange={setDogBreed} />
+            <Field icon="search-outline" placeholder="Breed" value={dogBreed} onChange={setDogBreed} colors={colors} />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <Field icon="calendar-outline" placeholder="Age (years)" value={dogAge} onChange={setDogAge} keyboardType="number-pad" />
+            <Field icon="calendar-outline" placeholder="Age (years)" value={dogAge} onChange={setDogAge} keyboardType="number-pad" colors={colors} />
           </View>
 
           <Text style={[styles.fieldLabel, { color: colors.mutedForeground }]}>Gender</Text>
