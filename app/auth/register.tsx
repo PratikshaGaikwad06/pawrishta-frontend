@@ -24,10 +24,11 @@ type FieldProps = {
   onChange: (text: string) => void;
   keyboardType?: any;
   secure?: boolean;
+  autoComplete?: string;
   colors: ReturnType<typeof useColors>;
 };
 
-const Field = ({ icon, placeholder, value, onChange, keyboardType = "default", secure = false, colors }: FieldProps) => (
+const Field = ({ icon, placeholder, value, onChange, keyboardType = "default", secure = false, autoComplete, colors }: FieldProps) => (
   <View style={styles.inputRow}>
     <Ionicons name={icon as any} size={18} color={colors.mutedForeground} style={styles.inputIcon} />
     <TextInput
@@ -38,7 +39,10 @@ const Field = ({ icon, placeholder, value, onChange, keyboardType = "default", s
       onChangeText={onChange}
       keyboardType={keyboardType}
       autoCapitalize={keyboardType === "email-address" ? "none" : "words"}
+      autoCorrect={false}
       secureTextEntry={secure}
+      autoComplete={autoComplete as any}
+      textContentType={secure ? "newPassword" : undefined}
     />
   </View>
 );
@@ -117,22 +121,22 @@ export default function RegisterScreen() {
 
       {step === "owner" ? (
         <View style={groupStyle}>
-          <Field icon="person-outline" placeholder="Full Name" value={name} onChange={setName} colors={colors} />
+          <Field icon="person-outline" placeholder="Full Name" value={name} onChange={setName} autoComplete="name" colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="mail-outline" placeholder="Email" value={email} onChange={setEmail} keyboardType="email-address" colors={colors} />
+          <Field icon="mail-outline" placeholder="Email" value={email} onChange={setEmail} keyboardType="email-address" autoComplete="email" colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="lock-closed-outline" placeholder="Password" value={password} onChange={setPassword} secure colors={colors} />
+          <Field icon="lock-closed-outline" placeholder="Password" value={password} onChange={setPassword} secure autoComplete="new-password" colors={colors} />
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
-          <Field icon="location-outline" placeholder="City, State" value={location} onChange={setLocation} colors={colors} />
+          <Field icon="location-outline" placeholder="City, State" value={location} onChange={setLocation} autoComplete="off" colors={colors} />
         </View>
       ) : (
         <>
           <View style={groupStyle}>
-            <Field icon="paw-outline" placeholder="Dog's Name" value={dogName} onChange={setDogName} colors={colors} />
+            <Field icon="paw-outline" placeholder="Dog's Name" value={dogName} onChange={setDogName} autoComplete="off" colors={colors} />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <Field icon="search-outline" placeholder="Breed" value={dogBreed} onChange={setDogBreed} colors={colors} />
+            <Field icon="search-outline" placeholder="Breed" value={dogBreed} onChange={setDogBreed} autoComplete="off" colors={colors} />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <Field icon="calendar-outline" placeholder="Age (years)" value={dogAge} onChange={setDogAge} keyboardType="number-pad" colors={colors} />
+            <Field icon="calendar-outline" placeholder="Age (years)" value={dogAge} onChange={setDogAge} keyboardType="number-pad" autoComplete="off" colors={colors} />
           </View>
 
           <Text style={[styles.fieldLabel, { color: colors.mutedForeground }]}>Gender</Text>
