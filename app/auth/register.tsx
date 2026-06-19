@@ -79,8 +79,9 @@ export default function RegisterScreen() {
       await register({ name: name.trim(), email: email.trim(), password, location: location.trim(),
         dogName: dogName.trim(), dogBreed: dogBreed.trim(), dogAge: parseInt(dogAge, 10), dogGender });
       router.replace("/(tabs)");
-    } catch { setError("Something went wrong."); }
-    finally { setLoading(false); }
+    } catch (err: any) {
+      setError(err?.message ?? "Something went wrong. Please try again.");
+    } finally { setLoading(false); }
   };
 
   const groupStyle = [styles.inputGroup, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: 20 }];
